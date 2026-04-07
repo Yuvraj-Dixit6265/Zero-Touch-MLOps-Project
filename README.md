@@ -1,13 +1,13 @@
 # 🚀 Zero-Touch Self-Healing MLOps Deployment System
 
-## 📌 Overview
+##  Overview
 This project demonstrates a fully automated MLOps deployment pipeline using Terraform and Docker on AWS.
 
 The system provisions infrastructure, deploys a containerized application, and ensures high availability through self-healing mechanisms — all with a single command.
 
 ---
 
-## ⚙️ Features
+##  Features
 
 - Infrastructure as Code (Terraform)
 - Automated EC2 provisioning
@@ -20,7 +20,7 @@ The system provisions infrastructure, deploys a containerized application, and e
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 
 Local Machine → Terraform → AWS EC2 → Setup Script → Docker → API + Self-Healing
@@ -28,7 +28,7 @@ Local Machine → Terraform → AWS EC2 → Setup Script → Docker → API + Se
 
 ---
 
-## 🚀 How It Works
+##  How It Works
 
 1. Run:
 
@@ -49,7 +49,7 @@ http://<EC2_PUBLIC_IP>:8000
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - AWS EC2
 - Terraform
@@ -58,7 +58,7 @@ http://<EC2_PUBLIC_IP>:8000
 
 ---
 
-## 🧠 Key Learnings
+##  Key Learnings
 
 - Terraform provisioners & remote execution
 - Debugging SSH & infra issues
@@ -67,7 +67,7 @@ http://<EC2_PUBLIC_IP>:8000
 
 ---
 
-## ⚠️ Challenges Faced
+##  Challenges Faced
 
 - SSH key issues
 - Security group misconfigurations
