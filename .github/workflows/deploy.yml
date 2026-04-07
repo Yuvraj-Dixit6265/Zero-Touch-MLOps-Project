@@ -26,6 +26,12 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -i ~/.ssh/key.pem ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-            cd ~
-            docker ps
+            echo "Connected to EC2"
+
+            # Stop old containers
+            sudo docker stop $(sudo docker ps -q) || true
+            sudo docker rm $(sudo docker ps -aq) || true
+
+            # Run new container
+            sudo docker run -d -p 8000:80 --restart always tiangolo/uvicorn-gunicorn-fastapi:python3.9
           EOF
