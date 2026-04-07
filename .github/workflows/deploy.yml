@@ -23,12 +23,12 @@ jobs:
         run: |
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-            - name: Deploy to EC2
+      - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/key.pem ubuntu@${{ secrets.EC2_HOST }} << EOF
           echo "🚀 Connected to EC2"
 
-          # Stop old containers
+          # Stop old containers (ignore errors)
           sudo docker stop \$(sudo docker ps -q) || true
           sudo docker rm \$(sudo docker ps -aq) || true
 
