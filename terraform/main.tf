@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_key_pair" "mlops_key" {
   key_name   = "mlops-key-final"
-  public_key = file("~/.ssh/mlops_key.pub")
+  public_key = file("~/.ssh/mlops_key_new.pub")
 }
 
 resource "aws_security_group" "mlops_sg" {
@@ -36,7 +36,7 @@ resource "aws_security_group" "mlops_sg" {
 }
 
 resource "aws_instance" "mlops_server" {
-  ami                         = "ami-0c1ac8a41498c1a9c" # Ubuntu (eu-north-1)
+  ami                         = "ami-0c1ac8a41498c1a9c"
   instance_type               = "t3.micro"
   key_name                    = aws_key_pair.mlops_key.key_name
   associate_public_ip_address = true
@@ -47,25 +47,22 @@ resource "aws_instance" "mlops_server" {
     Name = "mlops-ubuntu-server"
   }
 
-  # Ensure SG is ready before instance provisioning
   depends_on = [aws_security_group.mlops_sg]
 
-  # 🔐 SSH connection config
+  # ✅ FIXED SSH CONFIG
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("~/.ssh/mlops_key")
+    private_key = file("~/.ssh/mlops_key_new")   # ✅ FIXED
     host        = self.public_ip
     timeout     = "5m"
   }
 
-  # 📂 Upload setup script
   provisioner "file" {
     source      = "../setup.sh"
     destination = "/home/ubuntu/setup.sh"
   }
 
-  # ⚙️ Execute setup script
   provisioner "remote-exec" {
     inline = [
       "sleep 30",
