@@ -9,3 +9,5 @@
 
 # Mac files
 .DS_Store
+key.txt
+*.pem
