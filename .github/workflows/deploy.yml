@@ -23,19 +23,17 @@ jobs:
         run: |
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy to EC2
+            - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/key.pem ubuntu@${{ secrets.EC2_HOST }} << EOF
-          
-          echo " Connected to EC2"
+          echo "🚀 Connected to EC2"
 
-          # Stop old containers (ignore errors)
+          # Stop old containers
           sudo docker stop \$(sudo docker ps -q) || true
           sudo docker rm \$(sudo docker ps -aq) || true
 
           # Run new container
           sudo docker run -d -p 8000:80 --restart always tiangolo/uvicorn-gunicorn-fastapi:python3.9
 
-          echo " Deployment complete"
-
+          echo "✅ Deployment complete"
           EOF
